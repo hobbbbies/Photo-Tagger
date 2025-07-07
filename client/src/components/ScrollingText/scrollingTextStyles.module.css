@@ -1,0 +1,42 @@
+.mainContainer {
+  max-width: 100vw;
+  margin-inline: auto;
+  top: 0;
+}
+
+.marquee {
+  --gap: 1rem;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: var(--gap);
+}
+
+.content {
+  min-width: 50%;
+}
+
+.content > * {
+  color: var(--text-color);
+  background: var(--background-color);
+  /* margin: 2px; */
+  padding: 1rem 2rem;
+  text-align: center;
+  font-size: 2em;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - var(--gap))); }
+}
+
+.enableAnimation .content {
+  animation: scroll var(--animation-duration) linear infinite;
+}

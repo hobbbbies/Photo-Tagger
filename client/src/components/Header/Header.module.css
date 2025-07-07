@@ -1,0 +1,55 @@
+.header {
+    display: flex;
+    width: 100%;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    height: 12vh;
+    justify-content: space-between;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid black;
+}   
+
+.rightSide {
+    --gap: 48px;
+    display: flex;
+    gap: var(--gap);
+    font-size: 2em;
+    align-items: center;
+}
+
+.rightSide > * {
+    color: var(--text-color);
+}
+
+.leftSide {
+    display: flex;
+    gap: 3em;
+}
+
+.title {
+    justify-self: center;
+    align-self: center;
+    font-size: 3em;
+}
+
+.cart:hover {
+    cursor: pointer;
+}
+
+.cartSection {
+    position: relative;
+}
+
+.count {
+    position: absolute;
+    left: 70%;
+    top: -30%;
+    background-color: red;
+    border-radius:100%;
+    padding: 5px 10px 5px 10px;
+    font-size: 0.5em;
+    color: white;
+}

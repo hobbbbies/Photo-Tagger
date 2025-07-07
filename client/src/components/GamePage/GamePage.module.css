@@ -1,0 +1,9 @@
+.image {
+    object-fit: contain;
+    max-width: 100%;
+    display: block;
+}
+
+.gamePage {
+    position: relative;
+}
