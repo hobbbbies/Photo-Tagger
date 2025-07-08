@@ -4,6 +4,10 @@
     display: block;
 }
 
-.gamePage {
+/* .gamePage {
+    position: relative;
+} */
+
+.imageContainer {
     position: relative;
 }

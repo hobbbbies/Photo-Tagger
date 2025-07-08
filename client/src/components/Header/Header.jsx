@@ -1,7 +1,6 @@
 // import logo from "../../assets/wildex-high-resolution-logo.png";
 import styles from "./Header.module.css";
 import ScrollingText from "../ScrollingText/ScrollingText";
-import {useState} from 'react';
 import { useNavigate, Outlet, Link } from "react-router-dom";
 
 export default function Header() {
