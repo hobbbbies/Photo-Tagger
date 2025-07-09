@@ -1,0 +1,54 @@
+.gameOver {
+
+}
+
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.gameOverBox {
+    background-color: white;
+    padding: 3rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    min-width: 300px;
+    position: relative;
+}
+
+.exit {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #666;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: bold;
+    transform: rotate(45deg);
+}
+
+.exit:hover {
+    color: #000;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #d32f2f;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #666;
+}

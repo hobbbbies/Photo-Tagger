@@ -3,9 +3,8 @@ import styles from "./Header.module.css";
 import ScrollingText from "../ScrollingText/ScrollingText";
 import { useNavigate, Outlet, Link } from "react-router-dom";
 
-export default function Header() {
+export default function Header({ tries }) {
     const navigate = useNavigate();
-
 
     return (
         <>
@@ -19,6 +18,7 @@ export default function Header() {
                 <Link to='/products'>Play</Link>
             </div>
         </header>
+        <div>Attempts: {tries}/10</div>
         {/* <Outlet context={{ cartItems: cartItems, setCartItems: setCartItems }}/> */}
         </>
     )

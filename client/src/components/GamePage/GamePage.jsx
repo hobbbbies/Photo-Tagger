@@ -4,29 +4,33 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Selector from '../Selector/Selector';
 import Target from '../Target/Target';
+import GameOver from '../GameOver/GameOver';
 import { useState, useEffect, useRef } from 'react';
 
+    const desiredCoordinates = [92, 56.2];
+    const boxSize = 5; 
+    const targetSize = 2;
+
 export default function GamePage() {
+    const [tries, setTries] = useState(0);
     const [left, setLeft] = useState(null);
     const [top, setTop] = useState(null);
     const [boxRangeX, setBoxRangeX] = useState([null, null]);
     const [boxRangeY, setBoxRangeY] = useState([null, null]);
     const [desiredRangeX, setDesiredRangeX] = useState([null, null]);
     const [desiredRangeY, setDesiredRangeY] = useState([null, null]);
-    const [desiredCoordinates, setDesiredCoordinates] = useState([93, 58]);
-
     const imageRef = useRef(null);
-    const boxSize = 5; 
 
     useEffect(() => {
         const targetMinX = desiredCoordinates[0] - boxSize / 2;
         const targetMaxX = desiredCoordinates[0] + boxSize / 2;
-        const targetMinY = desiredCoordinates[1] - boxSize / 2;
-        const targetMaxY = desiredCoordinates[1] + boxSize / 2;
+        // Don't divide Y range by 2 because... IDK but range is half of what it should be if you do.
+        const targetMinY = desiredCoordinates[1] - boxSize;
+        const targetMaxY = desiredCoordinates[1] + boxSize;
         setDesiredRangeX([targetMinX, targetMaxX]);
         setDesiredRangeY([targetMinY, targetMaxY]);
         
-    }, [desiredCoordinates]);
+    }, []);
 
     useEffect(() => {
         if (left !== null && top !== null && boxRangeX[0] !== null && boxRangeY[0] !== null) {
@@ -40,8 +44,8 @@ export default function GamePage() {
             console.log(`Desired Min X: ${desiredMinX}, Desired Max X: ${desiredMaxX}`);
             console.log(`Desired Min Y: ${desiredMinY}, Desired Max Y: ${desiredMaxY}`);
             
-            const isWithinX = maxX >= desiredMinX && minX <= desiredMaxX;
-            const isWithinY = maxY >= desiredMinY && minY <= desiredMaxY;
+            const isWithinX = (maxX >= desiredMinX) && (minX <= desiredMaxX);
+            const isWithinY = (maxY >= desiredMinY) && (minY <= desiredMaxY);
             const isWithinBox = isWithinX && isWithinY;
 
             console.log(`Desired coordinates [${desiredCoordinates[0]}%, ${desiredCoordinates[1]}%] within box: ${isWithinBox}`);
@@ -51,11 +55,12 @@ export default function GamePage() {
                 // Add your success logic here
             }
         }
-    }, [left, top, boxRangeX, boxRangeY, desiredCoordinates, desiredRangeX, desiredRangeY]);
+    }, [left, top, boxRangeX, boxRangeY, desiredRangeX, desiredRangeY]);
     
 
     // Sets selector box
     const handleClick = (e) => {
+        setTries(tries + 1);
         console.log(`X: ${e.clientX}, Y: ${e.clientY}`);
 
         const relativeX = e.nativeEvent.offsetX / imageRef.current.offsetWidth * 100;
@@ -72,14 +77,16 @@ export default function GamePage() {
         setBoxRangeX([minX, maxX]);
         setBoxRangeY([minY, maxY]);
     }
+    
 
     return( 
         <div className={styles.gamePage}>
-            <Header />
+            <Header tries={tries}/>
+            {tries > 10 && <GameOver />}
             <div className={styles.imageContainer} onMouseDown={handleClick}>
                 <Selector left={left} top={top} boxSize={boxSize} />
                 {console.log(desiredCoordinates[0])}
-                <Target left={desiredCoordinates[0]} top={desiredCoordinates[1]} boxSize={boxSize} />
+                <Target left={desiredCoordinates[0]} top={desiredCoordinates[1]} boxSize={targetSize} />
                 {/* <img className={styles.image} src={src} ref={imageRef} onLoad={getActualCoordinates}></img> */}
                 <img className={styles.image} src={src} ref={imageRef}></img>
             </div>
