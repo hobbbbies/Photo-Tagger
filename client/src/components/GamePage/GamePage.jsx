@@ -5,11 +5,15 @@ import Footer from '../Footer/Footer';
 import Selector from '../Selector/Selector';
 import Target from '../Target/Target';
 import GameOver from '../GameOver/GameOver';
+import WinScreen from '../WinScreen/WinScreen';
+import { checkCollision } from './checkCollision';
 import { useState, useEffect, useRef } from 'react';
 
     const desiredCoordinates = [92, 56.2];
-    const boxSize = 5; 
+    const boxSize = 3; 
     const targetSize = 2;
+
+
 
 export default function GamePage() {
     const [tries, setTries] = useState(0);
@@ -19,6 +23,7 @@ export default function GamePage() {
     const [boxRangeY, setBoxRangeY] = useState([null, null]);
     const [desiredRangeX, setDesiredRangeX] = useState([null, null]);
     const [desiredRangeY, setDesiredRangeY] = useState([null, null]);
+    const [hasWon, setHasWon] = useState(false);
     const imageRef = useRef(null);
 
     useEffect(() => {
@@ -34,29 +39,12 @@ export default function GamePage() {
 
     useEffect(() => {
         if (left !== null && top !== null && boxRangeX[0] !== null && boxRangeY[0] !== null) {
-            const [desiredMinX, desiredMaxX] = desiredRangeX;
-            const [desiredMinY, desiredMaxY] = desiredRangeY;
-            const [minX, maxX] = boxRangeX;
-            const [minY, maxY] = boxRangeY;
-
-            console.log(`Selector Min X: ${minX}, Selector Max X: ${maxX}`);
-            console.log(`Selector Min Y: ${minY}, Selector Max Y: ${maxY}`);
-            console.log(`Desired Min X: ${desiredMinX}, Desired Max X: ${desiredMaxX}`);
-            console.log(`Desired Min Y: ${desiredMinY}, Desired Max Y: ${desiredMaxY}`);
-            
-            const isWithinX = (maxX >= desiredMinX) && (minX <= desiredMaxX);
-            const isWithinY = (maxY >= desiredMinY) && (minY <= desiredMaxY);
-            const isWithinBox = isWithinX && isWithinY;
-
-            console.log(`Desired coordinates [${desiredCoordinates[0]}%, ${desiredCoordinates[1]}%] within box: ${isWithinBox}`);
-
-            if (isWithinBox) {
-                console.log("Found the target!");
-                // Add your success logic here
-            }
+           if (checkCollision(boxRangeX, boxRangeY, desiredRangeX, desiredRangeY)) {
+            console.log('Found the target!');
+            setHasWon(true);
+           }
         }
     }, [left, top, boxRangeX, boxRangeY, desiredRangeX, desiredRangeY]);
-    
 
     // Sets selector box
     const handleClick = (e) => {
@@ -78,16 +66,15 @@ export default function GamePage() {
         setBoxRangeY([minY, maxY]);
     }
     
-
     return( 
         <div className={styles.gamePage}>
             <Header tries={tries}/>
+            {hasWon && <WinScreen />}
             {tries > 10 && <GameOver />}
             <div className={styles.imageContainer} onMouseDown={handleClick}>
-                <Selector left={left} top={top} boxSize={boxSize} />
+                {tries > 0 &&  <Selector left={left} top={top} boxSize={boxSize} characters={['Waldo', 'Alien']} />}
                 {console.log(desiredCoordinates[0])}
                 <Target left={desiredCoordinates[0]} top={desiredCoordinates[1]} boxSize={targetSize} />
-                {/* <img className={styles.image} src={src} ref={imageRef} onLoad={getActualCoordinates}></img> */}
                 <img className={styles.image} src={src} ref={imageRef}></img>
             </div>
             <Footer />
