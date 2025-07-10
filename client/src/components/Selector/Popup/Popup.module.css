@@ -1,9 +1,35 @@
 .popup {
     position: absolute;
-    width: 90px;
-    aspect-ratio: 1 / 2;
-    background-color: antiquewhite;
-    opacity: 50%;
+    background: linear-gradient(135deg, #3e72bf 0%, #9eb4d6 100%);    
     bottom: 0;
     z-index: 1000;
+    left: 100%;
+    border-radius: 12px;
+    margin: 10px 0 0 10px;
+    border: 2px solid black;
+    box-shadow: 0 12px 48px 0 rgba(30, 30, 60, 0.55), 0 2px 8px 0 rgba(0,0,0,0.18);
+}
+
+.popup:hover {
+    box-shadow: 0 20px 64px 0 rgba(30, 30, 60, 0.7), 0 4px 16px 0 rgba(0,0,0,0.22);
+}
+
+.list {
+    list-style-type: none;
+    padding: 0.75rem 0.5rem;
+}
+
+.listItem {
+    
+    padding: 0.75rem 1.25rem;
+    pointer-events: all;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.listItem:hover {
+    background: #222;
+    color: #fff;
+    border: 1px solid #888;
+    transform: scale(1.04);
 }
