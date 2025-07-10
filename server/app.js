@@ -6,14 +6,15 @@ const PORT = process.env.PORT || 3000;
 // const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 // const prisma = new PrismaClient()
 const path = require('path');
-
+const middleware = require('./controllers/ checkCollision');
 require('dotenv').config();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../client/dist')));
-
+app.use(express.json())
 app.get('/{*any}', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
+app.post('/api/checkCollision', middleware.checkCollision);
 
 app.listen(PORT, () => {
     console.log("Listening on 3000");

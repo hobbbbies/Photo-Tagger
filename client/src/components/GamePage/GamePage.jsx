@@ -45,14 +45,30 @@ export default function GamePage() {
         
     // }, []);
 
-    // useEffect(() => {
-    //     if (left !== null && top !== null && boxRangeX[0] !== null && boxRangeY[0] !== null) {
-    //        if (checkCollision(boxRangeX, boxRangeY, desiredRangeX, desiredRangeY)) {
-    //         console.log('Found the target!');
-    //         setHasWon(true);
-    //        }
-    //     }
-    // }, [left, top, boxRangeX, boxRangeY, desiredRangeX, desiredRangeY]);
+    useEffect(() => {
+        console.log(`left: ${left}, top: ${top}, boxRangeX[0]: ${boxRangeX[0]}, boxRangY[0]: ${boxRangeY[0]}`);
+        if (left !== null && top !== null && boxRangeX[0] !== null && boxRangeY[0] !== null) {
+            console.log('fetching...');
+            fetch('/api/checkCollision', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ boxRangeX: boxRangeX, boxRangeY: boxRangeY, desiredRangeX: desiredRangeX, desiredRangeY: desiredRangeY })
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('API response was not ok ');
+                }
+                console.log("Api response is okay.");
+                return response.json();
+            }).then(data => {
+                console.log('data sent: ', data);
+                if (data.isWithinBox) {
+                    console.log('true');
+                }
+            }).catch(error => {
+                console.error("Error with the fetch: ", error);
+            });
+        }
+    }, [left, top, boxRangeX, boxRangeY, desiredRangeX, desiredRangeY]);
 
     // Sets selector box
     const handleClick = (e) => {
