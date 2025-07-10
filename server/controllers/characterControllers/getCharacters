@@ -1,0 +1,9 @@
+const { PrismaClient } = require('../../generated/prisma');
+const prisma = new PrismaClient()
+
+const getCharacters = async (req, res) => {
+    const characters = await prisma.character.findMany();
+    res.json({characters: characters});
+} 
+
+module.exports = getCharacters
