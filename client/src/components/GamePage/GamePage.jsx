@@ -20,7 +20,9 @@ export default function GamePage() {
     const imageRef = useRef(null);
     const [foundCharacterId, setFoundCharacterId] = useState([]);
     const [popupOpen, setPopupOpen] = useState(false);
+    const [elapsedTime, setElapsedTime] = useState(0);
 
+    // Queries backend for all characters 
     useEffect(() => {
         console.log("fetching...");
         fetch('http://localhost:3000/api/characters', {
@@ -39,7 +41,7 @@ export default function GamePage() {
         });;
     }, []);
 
-    // Sets selector box
+    // Sets selector box on click
     const handleClick = (e) => {
         if (popupOpen && !e.target.classList.contains(styles.box)) {
             setPopupOpen(false);
@@ -64,7 +66,7 @@ export default function GamePage() {
         setBoxRangeY([minY, maxY]);
     }
 
-    // React strict mode may break this 
+    // Win condition check 
     useEffect(() => {
         console.log(`characters; ${characters}, foundCharacters: ${foundCharacterId}`)
         if (characters?.length === foundCharacterId.length) setHasWon(true);
@@ -72,8 +74,8 @@ export default function GamePage() {
     
     return( 
         <div className={styles.gamePage}>
-            <Header tries={tries}/>
-            {hasWon && <WinScreen />}
+            <Header tries={tries} elapsedTime={elapsedTime} setElapsedTime={setElapsedTime} hasWon={hasWon}/>
+            {hasWon && <WinScreen elapsedTime={elapsedTime}/>}
             {tries > 10 && <GameOver />}
             <div className={styles.imageContainer} >
                 {popupOpen &&  <Selector 

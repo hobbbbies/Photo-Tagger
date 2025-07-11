@@ -53,9 +53,11 @@
     color: white;
 }
 
-.header + div {
+.headerFooter {
     background-color: var(--background-color);
     color: var(--text-color);
-    text-align: center;
     padding: 5px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
 }

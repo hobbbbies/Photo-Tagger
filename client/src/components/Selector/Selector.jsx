@@ -1,6 +1,5 @@
 import styles from './Selector.module.css'
 import Popup from './Popup/Popup'
-import { useState, useEffect } from 'react';
 
 export default function Selector({left, top, boxSize, characters, foundCharacterId, setFoundCharacterId, boxRangeX, boxRangeY}) {
     // const [selectedCharacter, setSelectedCharacter] = useState(null);

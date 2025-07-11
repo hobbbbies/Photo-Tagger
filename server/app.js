@@ -10,6 +10,7 @@ const getCharacters = require('./controllers/characterControllers/getCharacters'
 require('dotenv').config();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 app.use(express.json())
 
 app.post('/api/checkCollision', checkCollision);

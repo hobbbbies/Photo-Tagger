@@ -33,3 +33,8 @@
     border: 1px solid #888;
     transform: scale(1.04);
 }
+
+.charImage {
+    max-height: 50px;
+    max-width: 50px;
+}
