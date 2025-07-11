@@ -3,9 +3,9 @@ const { PrismaClient } = require('../../generated/prisma');
 const prisma = new PrismaClient()
 
 const checkCollision = async (req, res) => {
-    const { boxRangeX, boxRangeY, charName } = req.body;
-    const characters = await prisma.character.findUnique({
-        where: {name: charName}
+    const { boxRangeX, boxRangeY, charId } = req.body;
+    const character = await prisma.character.findUnique({
+        where: {id: charId}
     });
     
     const desiredRangeX = [
