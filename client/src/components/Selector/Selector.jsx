@@ -2,7 +2,7 @@ import styles from './Selector.module.css'
 import Popup from './Popup/Popup'
 import { useState, useEffect } from 'react';
 
-export default function Selector({left, top, boxSize, characters, setHasWon, boxRangeX, boxRangeY}) {
+export default function Selector({left, top, boxSize, characters, foundCharacterId, setFoundCharacterId, boxRangeX, boxRangeY}) {
     // const [selectedCharacter, setSelectedCharacter] = useState(null);
 
     const checkCollision = (charId) => {
@@ -21,7 +21,8 @@ export default function Selector({left, top, boxSize, characters, setHasWon, box
         }).then(data => {
             console.log('data sent: ', data);
             if (data.isWithinBox) {
-                setHasWon(true);
+                if (foundCharacterId.includes(charId)) return;
+                setFoundCharacterId([...foundCharacterId, charId]);
             }
         }).catch(error => {
             console.error("Error with the fetch: ", error);

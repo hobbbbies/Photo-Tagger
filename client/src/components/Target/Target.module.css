@@ -1,8 +1,9 @@
 .target {
     aspect-ratio: 1 / 1;
-    opacity: 100%;
-    background-color: rgb(253, 0, 0);
     position: absolute;
     transform: translate(-50%, -50%);
     pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
